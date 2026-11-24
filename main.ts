@@ -37,12 +37,16 @@ function main(): void {
   const bytes = Buffer.byteLength(written, "utf8");
   const lines = written.split("\n").length;
   const nonWhitespace = written.trim().length > 0;
+  const noEdgeWhitespace = written === written.trim();
+  const noTrailingNewline = !written.endsWith("\n");
   const roundTrip = written === ENTRY;
   const valid =
     chars >= MIN_CHARS &&
     chars <= MAX_CHARS &&
     lines === 1 &&
     nonWhitespace &&
+    noEdgeWhitespace &&
+    noTrailingNewline &&
     roundTrip;
 
   console.log(`entry: ${written}`);
@@ -50,6 +54,8 @@ function main(): void {
   console.log(`bytes: ${bytes}`);
   console.log(`lines: ${lines}`);
   console.log(`non-whitespace: ${nonWhitespace}`);
+  console.log(`no-edge-whitespace: ${noEdgeWhitespace}`);
+  console.log(`no-trailing-newline: ${noTrailingNewline}`);
   console.log(`round-trip exact: ${roundTrip}`);
   console.log(`valid: ${valid}`);
 
